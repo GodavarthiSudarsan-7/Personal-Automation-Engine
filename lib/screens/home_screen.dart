@@ -3,8 +3,14 @@ import 'create_rule_screen.dart';
 import '../engine/rule_manager.dart';
 import '../triggers/trigger_manager.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +45,38 @@ class HomeScreen extends StatelessWidget {
                           vertical: 5,
                         ),
                         child: ListTile(
+
                           title: Text(rule.name),
-                          subtitle: Text("Trigger: ${rule.triggerType}"),
-                          trailing: Icon(
-                            rule.enabled
-                                ? Icons.toggle_on
-                                : Icons.toggle_off,
-                            color: rule.enabled
-                                ? Colors.green
-                                : Colors.grey,
-                            size: 32,
+
+                          subtitle: Text(
+                            "Trigger: ${rule.triggerType}",
                           ),
+
+                          leading: Switch(
+                            value: rule.enabled,
+                            onChanged: (value) {
+
+                              setState(() {
+                                RuleManager.toggleRule(rule.id);
+                              });
+
+                            },
+                          ),
+
+                          trailing: IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+
+                              setState(() {
+                                RuleManager.deleteRule(rule.id);
+                              });
+
+                            },
+                          ),
+
                         ),
                       );
 
@@ -62,7 +89,6 @@ class HomeScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
 
-              // Test trigger
               TriggerManager.batteryTrigger(10);
 
             },
@@ -84,7 +110,8 @@ class HomeScreen extends StatelessWidget {
             ),
           );
 
-          (context as Element).markNeedsBuild();
+          setState(() {});
+
         },
         child: const Icon(Icons.add),
       ),

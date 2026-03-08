@@ -20,7 +20,6 @@ class Rule {
     required this.actions,
   });
 
-  // Convert Rule → JSON
   Map<String, dynamic> toJson() {
     return {
       "id": id,
@@ -33,16 +32,31 @@ class Rule {
     };
   }
 
-  // Convert JSON → Rule
   factory Rule.fromJson(Map<String, dynamic> json) {
+
+    List<Map<String, dynamic>> parsedConditions = [];
+    List<Map<String, dynamic>> parsedActions = [];
+
+    if (json["conditions"] != null) {
+      for (var item in json["conditions"]) {
+        parsedConditions.add(Map<String, dynamic>.from(item));
+      }
+    }
+
+    if (json["actions"] != null) {
+      for (var item in json["actions"]) {
+        parsedActions.add(Map<String, dynamic>.from(item));
+      }
+    }
+
     return Rule(
       id: json["id"],
       name: json["name"],
       enabled: json["enabled"],
       triggerType: json["triggerType"],
-      triggerParams: Map<String, dynamic>.from(json["triggerParams"]),
-      conditions: List<Map<String, dynamic>>.from(json["conditions"]),
-      actions: List<Map<String, dynamic>>.from(json["actions"]),
+      triggerParams: Map<String, dynamic>.from(json["triggerParams"] ?? {}),
+      conditions: parsedConditions,
+      actions: parsedActions,
     );
   }
 
