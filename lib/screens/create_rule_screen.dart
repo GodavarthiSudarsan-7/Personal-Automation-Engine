@@ -35,7 +35,11 @@ class _CreateRuleScreenState extends State<CreateRuleScreen> {
       triggerType: selectedTrigger,
       triggerParams: {},
       conditions: [],
-      actions: [],
+      actions: [
+        {
+          "type": "notification"
+        }
+      ],
     );
 
     RuleManager.addRule(rule);
@@ -90,9 +94,12 @@ class _CreateRuleScreenState extends State<CreateRuleScreen> {
 
             const SizedBox(height: 30),
 
-            ElevatedButton(
-              onPressed: saveRule,
-              child: const Text("Save Rule"),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: saveRule,
+                child: const Text("Save Rule"),
+              ),
             )
 
           ],

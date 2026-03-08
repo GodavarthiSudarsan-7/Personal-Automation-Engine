@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+import 'screens/home_screen.dart';
+import 'engine/rule_manager.dart';
+
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  await Hive.openBox('rules');
+
+  RuleManager.loadRules();
+
   runApp(const AutomationApp());
 }
 
@@ -10,13 +21,17 @@ class AutomationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Personal Automation Engine',
       debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
       home: const HomeScreen(),
     );
+
   }
 }

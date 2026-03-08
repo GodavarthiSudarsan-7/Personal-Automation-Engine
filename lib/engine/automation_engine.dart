@@ -1,8 +1,10 @@
 import '../models/rule.dart';
 import 'rule_manager.dart';
+import '../actions/action_executor.dart';
 
 class AutomationEngine {
 
+  // Called when a trigger happens
   static void evaluateTrigger(String triggerType, Map<String, dynamic> data) {
 
     List<Rule> rules = RuleManager.getRules();
@@ -25,6 +27,7 @@ class AutomationEngine {
 
   }
 
+  // Check rule conditions
   static bool evaluateConditions(Rule rule, Map<String, dynamic> data) {
 
     for (var condition in rule.conditions) {
@@ -45,19 +48,13 @@ class AutomationEngine {
     return true;
   }
 
+  // Execute rule actions
   static void executeActions(Rule rule) {
 
-    for (var action in rule.actions) {
-
-      String type = action["type"];
-
-      if (type == "notification") {
-
-        print("Notification executed for rule: ${rule.name}");
-
-      }
-
-    }
+    ActionExecutor.executeActions(
+      rule.name,
+      rule.actions,
+    );
 
   }
 
