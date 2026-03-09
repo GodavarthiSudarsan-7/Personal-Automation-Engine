@@ -4,7 +4,6 @@ import '../actions/action_executor.dart';
 
 class AutomationEngine {
 
-  // Called when a trigger happens
   static void evaluateTrigger(String triggerType, Map<String, dynamic> data) {
 
     List<Rule> rules = RuleManager.getRules();
@@ -27,17 +26,22 @@ class AutomationEngine {
 
   }
 
-  // Check rule conditions
   static bool evaluateConditions(Rule rule, Map<String, dynamic> data) {
+
+    if (rule.conditions.isEmpty) {
+      return true;
+    }
 
     for (var condition in rule.conditions) {
 
       String type = condition["type"];
       dynamic value = condition["value"];
 
-      if (type == "battery") {
+      if (type == "battery_less_than") {
 
-        if (data["battery"] >= value) {
+        int batteryLevel = data["battery"];
+
+        if (batteryLevel >= value) {
           return false;
         }
 
@@ -46,9 +50,9 @@ class AutomationEngine {
     }
 
     return true;
+
   }
 
-  // Execute rule actions
   static void executeActions(Rule rule) {
 
     ActionExecutor.executeActions(
