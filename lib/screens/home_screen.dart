@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'create_rule_screen.dart';
+import 'edit_rule_screen.dart';
 import '../engine/rule_manager.dart';
 import '../triggers/trigger_manager.dart';
+import '../engine/json_manager.dart';
+import 'log_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +23,40 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Automation Rules"),
+        actions: [
+
+          IconButton(
+            icon: const Icon(Icons.download),
+            onPressed: () {
+
+              String json = JsonManager.exportRules();
+
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Exported JSON"),
+                  content: SingleChildScrollView(
+                    child: Text(json),
+                  ),
+                ),
+              );
+
+            },
+          ),
+
+          IconButton(
+            icon: const Icon(Icons.list),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LogScreen(),
+                ),
+              );
+            },
+          )
+
+        ],
       ),
 
       body: Column(
@@ -51,6 +88,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           subtitle: Text(
                             "Trigger: ${rule.triggerType}",
                           ),
+
+                          onTap: () async {
+
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EditRuleScreen(rule: rule),
+                              ),
+                            );
+
+                            setState(() {});
+
+                          },
 
                           leading: Switch(
                             value: rule.enabled,
