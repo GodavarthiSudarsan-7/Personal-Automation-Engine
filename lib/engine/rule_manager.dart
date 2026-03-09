@@ -34,4 +34,18 @@ class RuleManager {
     }
   }
 
+  static void updateRule(Rule updatedRule) {
+
+    for (int i = 0; i < rules.length; i++) {
+
+      if (rules[i].id == updatedRule.id) {
+        rules[i] = updatedRule;
+        RuleStorage.saveRule(updatedRule);
+        break;
+      }
+
+    }
+
+  }
+
 }
