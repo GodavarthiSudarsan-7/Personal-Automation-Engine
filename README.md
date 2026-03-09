@@ -1,20 +1,48 @@
 # Personal Automation Engine
 
-A rule-based automation mobile application where users can
-create triggers, conditions, and actions to automate tasks.
+## Overview
+A mobile application that allows users to create automation rules. 
+Rules consist of triggers, optional conditions, and actions that execute automatically when triggered.
 
 ## Features
-- Rule management
-- Multiple triggers
-- Dynamic condition evaluation
+- Create automation rules
+- Enable / Disable rules
+- Edit and delete rules
+- Trigger system (Time, Battery, WiFi)
+- Condition evaluation
 - Modular action system
-
-## Tech Stack
-Flutter
-Dart
-Local Storage
+- Execution logs
+- JSON export of rules
+- Persistent rule storage
 
 ## Architecture
+
 UI Layer
+screens/
+
 Rule Engine
-Data Storage
+engine/
+
+Storage
+Hive Database
+
+Triggers
+TriggerManager
+
+Actions
+ActionExecutor
+
+## Rule Execution Flow
+
+Trigger Event  
+↓  
+AutomationEngine evaluates rules  
+↓  
+Conditions validated  
+↓  
+Actions executed  
+
+## Technologies Used
+- Flutter
+- Dart
+- Hive Local Database
