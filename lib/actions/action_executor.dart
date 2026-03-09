@@ -1,3 +1,5 @@
+import '../engine/log_manager.dart';
+
 class ActionExecutor {
 
   static void executeActions(
@@ -16,6 +18,8 @@ class ActionExecutor {
       }
 
       else if (type == "log") {
+
+        LogManager.addLog(ruleName);
 
         print("Log entry created for rule: $ruleName");
 
