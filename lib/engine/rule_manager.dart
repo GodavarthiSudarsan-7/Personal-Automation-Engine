@@ -25,17 +25,13 @@ class RuleManager {
   }
 
   static void toggleRule(String id) {
-
     for (var rule in rules) {
-
       if (rule.id == id) {
         rule.enabled = !rule.enabled;
         RuleStorage.saveRule(rule);
         break;
       }
-
     }
-
   }
 
 }

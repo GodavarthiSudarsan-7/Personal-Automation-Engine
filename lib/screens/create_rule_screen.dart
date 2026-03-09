@@ -34,7 +34,12 @@ class _CreateRuleScreenState extends State<CreateRuleScreen> {
       enabled: true,
       triggerType: selectedTrigger,
       triggerParams: {},
-      conditions: [],
+      conditions: [
+        {
+          "type": "battery_less_than",
+          "value": 20
+        }
+      ],
       actions: [
         {
           "type": "notification"
@@ -79,13 +84,11 @@ class _CreateRuleScreenState extends State<CreateRuleScreen> {
                   child: Text(trigger),
                 );
               }).toList(),
-
               onChanged: (value) {
                 setState(() {
                   selectedTrigger = value!;
                 });
               },
-
               decoration: const InputDecoration(
                 labelText: "Select Trigger",
                 border: OutlineInputBorder(),
