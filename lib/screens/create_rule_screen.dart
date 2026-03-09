@@ -43,6 +43,9 @@ class _CreateRuleScreenState extends State<CreateRuleScreen> {
       actions: [
         {
           "type": "notification"
+        },
+        {
+          "type": "log"
         }
       ],
     );

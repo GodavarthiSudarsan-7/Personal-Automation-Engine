@@ -1,6 +1,9 @@
 class ActionExecutor {
 
-  static void executeActions(String ruleName, List actions) {
+  static void executeActions(
+    String ruleName,
+    List<Map<String, dynamic>> actions,
+  ) {
 
     for (var action in actions) {
 
@@ -8,19 +11,19 @@ class ActionExecutor {
 
       if (type == "notification") {
 
-        print("🔔 Notification triggered from rule: $ruleName");
+        print("Notification executed for rule: $ruleName");
 
       }
 
       else if (type == "log") {
 
-        print("📄 Log action from rule: $ruleName");
+        print("Log entry created for rule: $ruleName");
 
       }
 
-      else if (type == "toggle") {
+      else if (type == "open_app") {
 
-        print("⚙ Toggle action executed for rule: $ruleName");
+        print("Opening application for rule: $ruleName");
 
       }
 
