@@ -1,4 +1,5 @@
 import '../engine/log_manager.dart';
+import '../services/notification_service.dart';
 
 class ActionExecutor {
 
@@ -13,15 +14,16 @@ class ActionExecutor {
 
       if (type == "notification") {
 
-        print("Notification executed for rule: $ruleName");
+        NotificationService.showNotification(
+          "Automation Triggered",
+          "Rule \"$ruleName\" executed",
+        );
 
       }
 
       else if (type == "log") {
 
         LogManager.addLog(ruleName);
-
-        print("Log entry created for rule: $ruleName");
 
       }
 

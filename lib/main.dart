@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'screens/dashboard_screen.dart';
 import 'engine/rule_manager.dart';
+import 'services/notification_service.dart';
 
 void main() async {
 
@@ -12,6 +13,8 @@ void main() async {
   await Hive.openBox('rules');
 
   RuleManager.loadRules();
+
+  await NotificationService.initialize();
 
   runApp(const AutomationApp());
 
