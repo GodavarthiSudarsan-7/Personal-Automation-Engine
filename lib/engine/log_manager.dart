@@ -6,19 +6,26 @@ class LogManager {
 
   static void addLog(String ruleName) {
 
-    String time = DateTime.now().toString();
-
-    logs.add(
-      LogEntry(
-        ruleName: ruleName,
-        time: time,
-      ),
+    final log = LogEntry(
+      ruleName: ruleName,
+      time: _formatTime(DateTime.now()),
     );
+
+    logs.insert(0, log);
 
   }
 
   static List<LogEntry> getLogs() {
     return logs;
+  }
+
+  static String _formatTime(DateTime time) {
+
+    String hour = time.hour.toString().padLeft(2, '0');
+    String minute = time.minute.toString().padLeft(2, '0');
+    String second = time.second.toString().padLeft(2, '0');
+
+    return "$hour:$minute:$second";
   }
 
 }
