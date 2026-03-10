@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'screens/home_screen.dart';
+
+import 'screens/dashboard_screen.dart';
 import 'engine/rule_manager.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Hive.initFlutter();
   await Hive.openBox('rules');
+
   RuleManager.loadRules();
+
   runApp(const AutomationApp());
+
 }
 
 class AutomationApp extends StatelessWidget {
@@ -16,13 +22,45 @@ class AutomationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
-      title: 'Personal Automation Engine',
+
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: "Personal Automation Engine",
+
+      theme: ThemeData.dark().copyWith(
+
+        scaffoldBackgroundColor: const Color(0xFF0F172A),
+
+        primaryColor: Colors.blueAccent,
+
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1E293B),
+          elevation: 0,
+          centerTitle: true,
+        ),
+
+        cardTheme: const CardThemeData(
+          color: Color(0xFF1E293B),
+          elevation: 4,
+        ),
+
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.blueAccent,
+        ),
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueAccent,
+            foregroundColor: Colors.white,
+          ),
+        ),
+
       ),
-      home: const HomeScreen(),
+
+      home: const DashboardScreen(),
+
     );
+
   }
 }

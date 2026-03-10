@@ -5,6 +5,7 @@ import '../engine/rule_manager.dart';
 import '../triggers/trigger_manager.dart';
 import '../engine/json_manager.dart';
 import 'log_screen.dart';
+import 'dashboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +25,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Automation Rules"),
         actions: [
+
+          IconButton(
+            icon: const Icon(Icons.dashboard),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DashboardScreen(),
+                ),
+              );
+            },
+          ),
 
           IconButton(
             icon: const Icon(Icons.download),
