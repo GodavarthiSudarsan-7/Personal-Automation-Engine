@@ -17,7 +17,12 @@ class AutomationEngine {
         bool conditionsPassed = evaluateConditions(rule, data);
 
         if (conditionsPassed) {
-          executeActions(rule);
+
+          ActionExecutor.executeActions(
+            rule.name,
+            rule.actions,
+          );
+
         }
 
       }
@@ -39,6 +44,8 @@ class AutomationEngine {
 
       if (type == "battery_less_than") {
 
+        if (!data.containsKey("battery")) return false;
+
         int batteryLevel = data["battery"];
 
         if (batteryLevel >= value) {
@@ -50,15 +57,6 @@ class AutomationEngine {
     }
 
     return true;
-
-  }
-
-  static void executeActions(Rule rule) {
-
-    ActionExecutor.executeActions(
-      rule.name,
-      rule.actions,
-    );
 
   }
 
